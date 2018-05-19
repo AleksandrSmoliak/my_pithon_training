@@ -1,1 +1,2 @@
-# my_pithon_training
+# Repository for Python Training
+
