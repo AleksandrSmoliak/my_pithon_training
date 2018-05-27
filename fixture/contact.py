@@ -70,3 +70,12 @@ class ContactHelper:
         wd.find_element_by_name("address2").send_keys(Contact.home_address)
         # Сохранение контакта
         wd.find_element_by_xpath("//div[@id='content']/form/input[21]").click()
+
+    def delete_first_contact(self):
+        wd = self.app.wd
+        # Выбор контакта
+        wd.find_element_by_name("selected[]").click()
+        # Клик по кнопке удаления
+        wd.find_element_by_xpath("//input[@value='Delete']").click()
+        wd.switch_to_alert().accept()
+
