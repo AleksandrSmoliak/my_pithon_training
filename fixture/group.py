@@ -41,3 +41,28 @@ class GroupHelper:
         wd.find_element_by_name("delete").click()
         # Возвращение на страницу с группами
         self.return_group_page()
+
+    def edit_first_group(self, group):
+        wd = self.app.wd
+        # Открытие страницы со списком групп
+        self.open_group_page()
+        # Выбор редактируемой группы
+        wd.find_element_by_name("selected[]").click()
+        # Нажатие на кнопку "Edit group"
+        wd.find_element_by_name("edit").click()
+        # Выбор и заполнение поля "Group name"
+        wd.find_element_by_name("group_name").click()
+        wd.find_element_by_name("group_name").clear()
+        wd.find_element_by_name("group_name").send_keys(group.name)
+        # Выбор и заполнение поля "Group header"
+        wd.find_element_by_name("group_header").click()
+        wd.find_element_by_name("group_header").clear()
+        wd.find_element_by_name("group_header").send_keys(group.header)
+        # Выбор и заполнение поля "Group footer"
+        wd.find_element_by_name("group_footer").click()
+        wd.find_element_by_name("group_footer").clear()
+        wd.find_element_by_name("group_footer").send_keys(group.footer)
+        # Нажатие на кнопку "update"
+        wd.find_element_by_name("update").click()
+        # Возвращение на страницу со списком групп
+        self.return_group_page()
