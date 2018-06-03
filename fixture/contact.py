@@ -147,3 +147,7 @@ class ContactHelper:
         wd.find_element_by_name("address2").send_keys(Contact.home_address)
         # Нажатие кнопки "Update"
         wd.find_element_by_name("update").click()
+
+    def contact_count(self):
+        wd = self.app.wd
+        return len(wd.find_elements_by_name("selected[]"))
