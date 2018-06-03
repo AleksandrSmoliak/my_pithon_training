@@ -16,16 +16,8 @@ class GroupHelper:
         self.open_group_page()
         # Создание новой группы
         wd.find_element_by_name("new").click()
-        # Заполнение полей группы
-        wd.find_element_by_name("group_name").click()
-        wd.find_element_by_name("group_name").clear()
-        wd.find_element_by_name("group_name").send_keys(group.name)
-        wd.find_element_by_name("group_header").click()
-        wd.find_element_by_name("group_header").clear()
-        wd.find_element_by_name("group_header").send_keys(group.header)
-        wd.find_element_by_name("group_footer").click()
-        wd.find_element_by_name("group_footer").clear()
-        wd.find_element_by_name("group_footer").send_keys(group.footer)
+        # Заполнение полей формы
+        self.fill_group_form(group)
         # Сохранение создаваемой группы
         wd.find_element_by_name("submit").click()
         # Возвращение на страницу со списком групп
@@ -35,34 +27,41 @@ class GroupHelper:
         wd = self.app.wd
         # Открытие страницы создания группы
         self.open_group_page()
-        # Выбор группы
-        wd.find_element_by_name("selected[]").click()
+        # Выбор первой группы
+        self.select_first_group()
         # Клик по кнопке удаления
         wd.find_element_by_name("delete").click()
         # Возвращение на страницу с группами
         self.return_group_page()
+
+    def select_first_group(self):
+        wd = self.app.wd
+        wd.find_element_by_name("selected[]").click()
 
     def edit_first_group(self, group):
         wd = self.app.wd
         # Открытие страницы со списком групп
         self.open_group_page()
         # Выбор редактируемой группы
-        wd.find_element_by_name("selected[]").click()
+        self.select_first_group()
         # Нажатие на кнопку "Edit group"
         wd.find_element_by_name("edit").click()
-        # Выбор и заполнение поля "Group name"
-        wd.find_element_by_name("group_name").click()
-        wd.find_element_by_name("group_name").clear()
-        wd.find_element_by_name("group_name").send_keys(group.name)
-        # Выбор и заполнение поля "Group header"
-        wd.find_element_by_name("group_header").click()
-        wd.find_element_by_name("group_header").clear()
-        wd.find_element_by_name("group_header").send_keys(group.header)
-        # Выбор и заполнение поля "Group footer"
-        wd.find_element_by_name("group_footer").click()
-        wd.find_element_by_name("group_footer").clear()
-        wd.find_element_by_name("group_footer").send_keys(group.footer)
+        # Заполнение полей формы
+        self.fill_group_form(group)
         # Нажатие на кнопку "update"
         wd.find_element_by_name("update").click()
         # Возвращение на страницу со списком групп
         self.return_group_page()
+
+    def fill_group_form(self, group):
+        self.change_field_value("group_name", group.name)
+        self.change_field_value("group_header", group.header)
+        self.change_field_value("group_footer", group.footer)
+
+    def change_field_value(self, field_name, text):
+        wd = self.app.wd
+        if text is not None:
+            # Выбор и заполнение поля "Group name"
+            wd.find_element_by_name(field_name).click()
+            wd.find_element_by_name(field_name).clear()
+            wd.find_element_by_name(field_name).send_keys(text)
