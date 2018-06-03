@@ -4,6 +4,8 @@ class ContactHelper:
 
     def create(self, Contact):
         wd = self.app.wd
+        # Открытие домашней страницы
+        self.app.open_home_page()
         # Добавление нового контакта
         wd.find_element_by_link_text("add new").click()
         # Заполнение поля "Имя"
@@ -73,6 +75,8 @@ class ContactHelper:
 
     def delete_first_contact(self):
         wd = self.app.wd
+        # Открытие домашней страницы
+        self.app.open_home_page()
         # Выбор контакта
         wd.find_element_by_name("selected[]").click()
         # Клик по кнопке удаления
@@ -81,6 +85,8 @@ class ContactHelper:
 
     def edit_first_contact(self, Contact):
         wd = self.app.wd
+        # Открытие домашней страницы
+        self.app.open_home_page()
         # Нажатие кнопки "Edit" для редактирования
         wd.find_element_by_xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img").click()
         # Заполнение поля "Имя"
