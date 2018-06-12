@@ -9,10 +9,10 @@ def test_add_group(app):
     group = Group(name="Group1", header="Group1_Header", footer="Group1_Footer")
     # Добавляем новую группу
     app.group.create(group)
+    # Сравниваем длинну старого списка групп с новым
+    assert len(old_groups) + 1 == app.group.count()
     # Получаем новый список групп
     new_groups = app.group.get_group_list()
-    # Сравниваем длинну старого списка групп с новым
-    assert len(old_groups) + 1 == len(new_groups)
     # В переменную добавляем ту же самую группу, что добавили через интерфейс
     old_groups.append(group)
     # Проверка сравнения старой и новой группы
