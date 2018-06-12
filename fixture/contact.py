@@ -93,11 +93,14 @@ class ContactHelper:
         self.contact_cache = None
 
     def edit_first_contact(self, Contact):
+        self.edit_contact_by_index(Contact, 0)
+
+    def edit_contact_by_index(self, Contact, index):
         wd = self.app.wd
         # Открытие домашней страницы
         self.app.open_home_page()
         # Нажатие кнопки "Edit" для редактирования
-        wd.find_element_by_xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img").click()
+        wd.find_elements_by_xpath("//table[@id='maintable']/tbody/tr[@name='entry']/td[8]/a/img")[index].click()
         # Заполнение поля "Имя"
         wd.find_element_by_name("firstname").click()
         wd.find_element_by_name("firstname").clear()
