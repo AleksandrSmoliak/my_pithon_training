@@ -52,11 +52,14 @@ class GroupHelper:
         wd.find_elements_by_name("selected[]")[index].click()
 
     def edit_first_group(self, group):
+        self.edit_group_by_index(group, 0)
+
+    def edit_group_by_index(self, group, index):
         wd = self.app.wd
         # Открытие страницы со списком групп
         self.open_group_page()
         # Выбор редактируемой группы
-        self.select_first_group()
+        self.select_first_group_by_index(index)
         # Нажатие на кнопку "Edit group"
         wd.find_element_by_name("edit").click()
         # Заполнение полей формы
