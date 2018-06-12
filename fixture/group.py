@@ -81,7 +81,7 @@ class GroupHelper:
         self.open_group_page()
         # Создаем список
         groups = []
-        # Полусаем список элементов на странице
+        # Получаем список элементов на странице
         for element in wd.find_elements_by_css_selector("span.group"):
             # Присваиваем текст найденного элемента переменной
             text = element.text
