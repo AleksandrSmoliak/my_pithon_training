@@ -187,10 +187,10 @@ class ContactHelper:
                 firstname = cells[2].text
                 lastname = cells[1].text
                 address = cells[3].text
-                email = cells[4].text
+                allemail = cells[4].text
                 id = cells[0].find_element_by_name("selected[]").get_attribute("value")
                 all_phones = cells[5].text
-                self.contact_cache.append(Contact(firstname=firstname, lastname=lastname, address=address, email=email,
+                self.contact_cache.append(Contact(firstname=firstname, lastname=lastname, address=address, all_email_from_home_page=allemail,
                                                   id=id, all_phones_from_home_page=all_phones))
         return list(self.contact_cache)
 
