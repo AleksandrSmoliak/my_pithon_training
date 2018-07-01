@@ -44,12 +44,28 @@ class GroupHelper:
         self.return_group_page()
         self.group_cache = None
 
+    def delete_group_by_id(self, id):
+        wd = self.app.wd
+        # Открытие страницы создания группы
+        self.open_group_page()
+        # Выбор случайной группы
+        self.select_group_by_id(id)
+        # Клик по кнопке удаления
+        wd.find_element_by_name("delete").click()
+        # Возвращение на страницу с группами
+        self.return_group_page()
+        self.group_cache = None
+
     def select_first_group(self):
         self.select_first_group_by_index(0)
 
     def select_first_group_by_index(self, index):
         wd = self.app.wd
         wd.find_elements_by_name("selected[]")[index].click()
+
+    def select_group_by_id(self, id):
+        wd = self.app.wd
+        wd.find_element_by_css_selector("input[value = '%s']" % id).click()
 
     def edit_first_group(self, group):
         self.edit_group_by_index(group, 0)

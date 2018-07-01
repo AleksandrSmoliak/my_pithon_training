@@ -2,16 +2,14 @@
 from model.group import Group
 
 
-def test_add_group(app, json_groups):
+def test_add_group(app, db, json_groups):
     group = json_groups
-    # Получаем текущий список групп
-    old_groups = app.group.get_group_list()
+    # Получаем текущий список групп (из БД)
+    old_groups = db.get_group_list()
     # Добавляем новую группу
     app.group.create(group)
-    # Сравниваем длинну старого списка групп с новым
-    assert len(old_groups) + 1 == app.group.count()
-    # Получаем новый список групп
-    new_groups = app.group.get_group_list()
+    # Получаем новый список групп (из БД)
+    new_groups = db.get_group_list()
     # В переменную добавляем ту же самую группу, что добавили через интерфейс
     old_groups.append(group)
     # Проверка сравнения старой и новой группы
