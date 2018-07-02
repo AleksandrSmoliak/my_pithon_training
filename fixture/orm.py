@@ -2,7 +2,9 @@ from pony.orm import *
 from datetime import datetime
 from model.group import Group
 from model.contact_class import Contact
-from pymysql.converters import decoders
+from pymysql.converters import encoders, decoders, convert_mysql_timestamp
+
+
 
 class ORMfixture:
 
@@ -26,7 +28,10 @@ class ORMfixture:
         groups = Set(lambda: ORMfixture.ORMGroup, table="address_in_groups", column="group_id", reverse="contacts", lazy=True)
 
     def __init__(self, host, name, user, password):
-        self.db.bind('mysql', host=host, database=name, user=user, password=password, conv=decoders)
+        conv = encoders
+        conv.update(decoders)
+        conv[datetime] = convert_mysql_timestamp
+        self.db.bind('mysql', host=host, database=name, user=user, password=password, conv=conv)
         self.db.generate_mapping()
 
     def convert_groups_to_model(self, groups):
@@ -51,3 +56,9 @@ class ORMfixture:
     def get_contacts_in_group(self, group):
         orm_group = list(select(g for g in ORMfixture.ORMGroup if g.id == group.id))[0]
         return self.convert_contacts_to_model(orm_group.contacts)
+
+    @db_session
+    def get_contacts_not_in_group(self, group):
+        orm_group = list(select(g for g in ORMfixture.ORMGroup if g.id == group.id))[0]
+        return self.convert_contacts_to_model(
+            select(c for c in ORMfixture.ORMContact if c.deprecated is None and orm_group not in c.groups))
