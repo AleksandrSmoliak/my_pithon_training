@@ -92,8 +92,23 @@ class ContactHelper:
         wd.switch_to_alert().accept()
         self.contact_cache = None
 
+    def delete_contact_by_id(self, id):
+        wd = self.app.wd
+        # Открытие домашней страницы
+        self.app.open_home_page()
+        # Выбор контакта
+        self.select_contact_by_id(id)
+        # Клик по кнопке удаления
+        wd.find_element_by_xpath("//input[@value='Delete']").click()
+        wd.switch_to_alert().accept()
+        self.contact_cache = None
+
     def edit_first_contact(self, Contact):
         self.edit_contact_by_index(Contact, 0)
+
+    def select_contact_by_id(self, id):
+        wd = self.app.wd
+        wd.find_element_by_css_selector("input[value = '%s']" % id).click()
 
     def open_contact_to_edit_by_index(self, index):
         wd = self.app.wd
