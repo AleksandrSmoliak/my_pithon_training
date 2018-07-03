@@ -168,16 +168,6 @@ class ContactHelper:
         wd.find_element_by_name("homepage").click()
         wd.find_element_by_name("homepage").clear()
         wd.find_element_by_name("homepage").send_keys(Contact.homepage)
-        # Выбор дня даты рождения (выпадающий список)
-        if not wd.find_element_by_xpath(Contact.option_day_birthday).is_selected():
-            wd.find_element_by_xpath(Contact.option_day_birthday).click()
-        # Выбор месяца даты рождения (выпадающий список)
-        if not wd.find_element_by_xpath(Contact.option_month_birthday).is_selected():
-            wd.find_element_by_xpath(Contact.option_month_birthday).click()
-        # Заполнение поля "Год рождения"
-        wd.find_element_by_name("byear").click()
-        wd.find_element_by_name("byear").clear()
-        wd.find_element_by_name("byear").send_keys(Contact.year_birthday)
         # Заполнение поля "Домашний адрес"
         wd.find_element_by_name("address2").click()
         wd.find_element_by_name("address2").clear()
