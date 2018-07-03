@@ -1,6 +1,5 @@
 from model.group import Group
 
-
 class GroupHelper:
     def __init__(self, app):
         self.app = app
@@ -66,6 +65,15 @@ class GroupHelper:
     def select_group_by_id(self, id):
         wd = self.app.wd
         wd.find_element_by_css_selector("input[value = '%s']" % id).click()
+
+    def select_add_to_group_by_id(self, id):
+        wd = self.app.wd
+        wd.find_element_by_xpath("//div[@class='right']/select[@name='to_group']//option[@value='%s']" % id).click()
+
+    def add_to_group_by_id(self, id):
+        wd = self.app.wd
+        self.select_add_to_group_by_id(id)
+        wd.find_element_by_css_selector("input[name='add']").click()
 
     def edit_first_group(self, group):
         self.edit_group_by_index(group, 0)
