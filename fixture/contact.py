@@ -103,8 +103,25 @@ class ContactHelper:
         wd.switch_to_alert().accept()
         self.contact_cache = None
 
+    def remove_contact_from_group(self, id_group, id_contact):
+        wd = self.app.wd
+        # Переходим на страницу с контактами
+        self.app.open_home_page()
+        # Фильтруем контакты по группе
+        self.filter_group_by_id(id_group)
+        # Выбираем случайную группу по ИД
+        self.select_contact_by_id(id_contact)
+        # Удаляем выбранный контакт из группы
+        wd.find_element_by_xpath("//input[@name='remove']").click()
+
+
     def edit_first_contact(self, Contact):
         self.edit_contact_by_index(Contact, 0)
+
+    def filter_group_by_id(self, id):
+        wd = self.app.wd
+        # Выбираем в фильтре группу по id
+        wd.find_element_by_xpath("//select[@name='group']//option[@value='%s']" % id).click()
 
     def select_contact_by_id(self, id):
         wd = self.app.wd
